@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+//riaggiungere component
 public class Runner implements CommandLineRunner {
 
     @Autowired

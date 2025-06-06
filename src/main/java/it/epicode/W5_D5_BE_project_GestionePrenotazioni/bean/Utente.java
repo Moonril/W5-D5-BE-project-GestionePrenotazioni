@@ -28,6 +28,10 @@ public class Utente {
     @OneToMany(mappedBy = "utente")
     private List<Prenotazione> prenotazioni;
 
-
-
+    public Utente(String nome, String cognome, String username, String email) {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.username = username;
+        this.email = email;
+    }
 }
