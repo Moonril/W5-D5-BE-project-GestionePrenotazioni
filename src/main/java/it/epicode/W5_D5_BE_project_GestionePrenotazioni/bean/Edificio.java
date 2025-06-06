@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,5 +25,11 @@ public class Edificio {
 
 
     @OneToMany(mappedBy = "edificio")
-    private List<Postazione> postazioni;
+    private List<Postazione> postazioni = new ArrayList<>();
+
+
+    public Edificio(String nome, String citta) {
+        this.nome = nome;
+        this.citta = citta;
+    }
 }

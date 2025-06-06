@@ -1,7 +1,74 @@
 package it.epicode.W5_D5_BE_project_GestionePrenotazioni.configuration;
 
+import it.epicode.W5_D5_BE_project_GestionePrenotazioni.bean.Edificio;
+import it.epicode.W5_D5_BE_project_GestionePrenotazioni.bean.Postazione;
+import it.epicode.W5_D5_BE_project_GestionePrenotazioni.enums.TipoPostazione;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AppConfig {
+
+    // edifici
+
+    @Bean(name = "torre glories")
+    public Edificio getTorreGlories(){
+        Edificio glories = new Edificio();
+        glories.setNome("Torre Glories");
+        glories.setCitta("Barcelona");
+        return glories;
+    }
+
+    @Bean(name = "pavillion")
+    public Edificio getPavillion(){
+        Edificio pavillion = new Edificio();
+        pavillion.setNome("Pavillion");
+        pavillion.setCitta("Barcelona");
+        return pavillion;
+    }
+
+    @Bean(name = "hotel porta fira")
+    public Edificio getPortaFira(){
+        Edificio fira = new Edificio();
+        fira.setNome("Hotel Porta Fira");
+        fira.setCitta("Barcelona");
+        return fira;
+    }
+
+
+
+    // postazioni
+
+
+    @Bean(name = "sala riunioni")
+    public Postazione getSalaRiunioni(){
+        Postazione riunioni = new Postazione();
+        riunioni.setDescrizione("una sala per le riunioni");
+        riunioni.setMaxOccupanti(20);
+        riunioni.setPostazioneLibera(true);
+        riunioni.setTipoPostazione(TipoPostazione.SALA_RIUNIONI);
+        return riunioni;
+    }
+
+    @Bean(name = "sala privata")
+    public Postazione getSalaPrivata(){
+        Postazione privata = new Postazione();
+        privata.setDescrizione("una sala privata");
+        privata.setMaxOccupanti(5);
+        privata.setPostazioneLibera(true);
+        privata.setTipoPostazione(TipoPostazione.PRIVATA);
+        return privata;
+    }
+
+    @Bean(name = "openspace")
+    public Postazione getOpenspace(){
+        Postazione openspace = new Postazione();
+        openspace.setDescrizione("sala openspace");
+        openspace.setMaxOccupanti(100);
+        openspace.setPostazioneLibera(true);
+        openspace.setTipoPostazione(TipoPostazione.OPENSPACE);
+        return openspace;
+    }
+
+
 }

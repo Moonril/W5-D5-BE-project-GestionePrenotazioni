@@ -6,7 +6,9 @@ import it.epicode.W5_D5_BE_project_GestionePrenotazioni.repositories.Prenotazion
 import it.epicode.W5_D5_BE_project_GestionePrenotazioni.repositories.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
+//@Component
 public class RunnerScanner implements CommandLineRunner {
 
     @Autowired

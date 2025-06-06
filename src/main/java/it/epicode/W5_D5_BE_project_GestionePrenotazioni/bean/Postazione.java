@@ -30,4 +30,10 @@ public class Postazione {
     private Edificio edificio;
 
 
+    public Postazione(String descrizione, TipoPostazione tipoPostazione, int maxOccupanti, boolean postazioneLibera) {
+        this.descrizione = descrizione;
+        this.tipoPostazione = tipoPostazione;
+        this.maxOccupanti = maxOccupanti;
+        this.postazioneLibera = postazioneLibera;
+    }
 }
