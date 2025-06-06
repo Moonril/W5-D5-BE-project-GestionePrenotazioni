@@ -20,7 +20,6 @@ public class Postazione {
     private String descrizione;
     private TipoPostazione tipoPostazione;
     private int maxOccupanti;
-    private boolean postazioneLibera;
 
     @OneToMany(mappedBy = "postazione")
     private List<Prenotazione> prenotazioni;
@@ -30,10 +29,9 @@ public class Postazione {
     private Edificio edificio;
 
 
-    public Postazione(String descrizione, TipoPostazione tipoPostazione, int maxOccupanti, boolean postazioneLibera) {
+    public Postazione(String descrizione, TipoPostazione tipoPostazione, int maxOccupanti) {
         this.descrizione = descrizione;
         this.tipoPostazione = tipoPostazione;
         this.maxOccupanti = maxOccupanti;
-        this.postazioneLibera = postazioneLibera;
     }
 }

@@ -16,6 +16,7 @@ public class AppConfig {
         Edificio glories = new Edificio();
         glories.setNome("Torre Glories");
         glories.setCitta("Barcelona");
+        glories.setIndirizzo("Via de les cortes catalanes");
         return glories;
     }
 
@@ -24,6 +25,7 @@ public class AppConfig {
         Edificio pavillion = new Edificio();
         pavillion.setNome("Pavillion");
         pavillion.setCitta("Barcelona");
+        pavillion.setIndirizzo("");
         return pavillion;
     }
 
@@ -32,6 +34,7 @@ public class AppConfig {
         Edificio fira = new Edificio();
         fira.setNome("Hotel Porta Fira");
         fira.setCitta("Barcelona");
+        fira.setIndirizzo("");
         return fira;
     }
 
@@ -45,7 +48,6 @@ public class AppConfig {
         Postazione riunioni = new Postazione();
         riunioni.setDescrizione("una sala per le riunioni");
         riunioni.setMaxOccupanti(20);
-        riunioni.setPostazioneLibera(true);
         riunioni.setTipoPostazione(TipoPostazione.SALA_RIUNIONI);
         return riunioni;
     }
@@ -55,7 +57,6 @@ public class AppConfig {
         Postazione privata = new Postazione();
         privata.setDescrizione("una sala privata");
         privata.setMaxOccupanti(5);
-        privata.setPostazioneLibera(true);
         privata.setTipoPostazione(TipoPostazione.PRIVATA);
         return privata;
     }
@@ -65,7 +66,6 @@ public class AppConfig {
         Postazione openspace = new Postazione();
         openspace.setDescrizione("sala openspace");
         openspace.setMaxOccupanti(100);
-        openspace.setPostazioneLibera(true);
         openspace.setTipoPostazione(TipoPostazione.OPENSPACE);
         return openspace;
     }

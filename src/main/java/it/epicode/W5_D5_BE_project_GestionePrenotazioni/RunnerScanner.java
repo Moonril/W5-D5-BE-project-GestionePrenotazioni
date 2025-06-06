@@ -1,6 +1,9 @@
 package it.epicode.W5_D5_BE_project_GestionePrenotazioni;
 
+import it.epicode.W5_D5_BE_project_GestionePrenotazioni.bean.Postazione;
+import it.epicode.W5_D5_BE_project_GestionePrenotazioni.bean.Prenotazione;
 import it.epicode.W5_D5_BE_project_GestionePrenotazioni.bean.Utente;
+import it.epicode.W5_D5_BE_project_GestionePrenotazioni.enums.TipoPostazione;
 import it.epicode.W5_D5_BE_project_GestionePrenotazioni.exceptions.UsernameEsistenteException;
 import it.epicode.W5_D5_BE_project_GestionePrenotazioni.repositories.EdificioRepository;
 import it.epicode.W5_D5_BE_project_GestionePrenotazioni.repositories.PostazioneRepository;
@@ -10,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 @Component
@@ -140,10 +146,113 @@ public class RunnerScanner implements CommandLineRunner {
 
             switch (scelta1) {
                 case 1 -> {
-                    System.out.println("Inserisci");
+                    try {
+
+                        System.out.println("Inserisci la città: ");
+                        String citta = scanner.nextLine();
+                        System.out.println("In che data: ");
+                        LocalDate data = LocalDate.parse(scanner.nextLine());
+
+                        //stampa postazioni disponibili
+                        List<Postazione> disponibili = postazioneRepository.findPostazioniDisponibiliByCittaAndData(citta, data);
+                        if (disponibili.isEmpty()) {
+                            System.out.println("Nessuna postazione disponibile trovata in quella città o data. Riprova.");
+                            return;
+                        }
+                        disponibili.forEach(System.out::println);
+
+                        //scegli postazione per numero id:
+                        System.out.println("Scegli la postazione da prenotare tramite ID:");
+                        long sceltaPrenotazione = Long.parseLong(scanner.nextLine());
+
+                        Optional<Postazione> postazioneSceltaOpt = postazioneRepository.findById(sceltaPrenotazione);
+
+                        // crea prenotazione per quel giorno per 24h e assegna a utente
+
+                        Postazione postazioneScelta = postazioneSceltaOpt.get();
+
+                        Prenotazione prenotazione = new Prenotazione();
+                        prenotazione.setDataPrenotazione(data);
+                        prenotazione.setPostazione(postazioneScelta);
+                        prenotazione.setUtente(utente);
+
+                        utente.getPrenotazioni().add(prenotazione);
+
+                        prenotazioneRepository.save(prenotazione);
+
+                        System.out.println("Prenotazione completata con successo!");
+                    } catch (Exception e){
+                        e.getMessage();
+                    }
+
                 }
-                case 2 -> {}
-                case 3 -> {}
+                case 2 -> {
+                    try {
+
+                        System.out.println("Inserisci il tipo di postazione preferito: 1) Sala Privata, 2) Sala Riunioni 3) Openspace");
+                        int tipoInt = Integer.parseInt(scanner.nextLine()); // enum
+
+                        TipoPostazione tipo = null;
+                        switch (tipoInt) {
+                            case 1 -> tipo = TipoPostazione.PRIVATA;
+                            case 2 -> tipo = TipoPostazione.SALA_RIUNIONI;
+                            case 3 -> tipo = TipoPostazione.OPENSPACE;
+                            default -> {
+                                System.out.println("Tipo non valido");
+                                return;
+                            }
+                        }
+
+                        System.out.println("In che data (YYYY-MM-DD): ");
+                        LocalDate data = LocalDate.parse(scanner.nextLine());
+
+                        //stampa postazioni disponibili
+                        List<Postazione> disponibili = postazioneRepository.findPostazioniDisponibiliByTipoAndData(tipo, data);
+                        if (disponibili.isEmpty()) {
+                            System.out.println("Nessuna postazione disponibile trovata di quel tipo in quella data. Riprova.");
+                            return;
+                        }
+                        disponibili.forEach(System.out::println);
+
+                        //scegli postazione per numero id:
+                        System.out.println("Scegli la postazione da prenotare tramite ID:");
+                        long sceltaPrenotazione = Long.parseLong(scanner.nextLine());
+
+                        Optional<Postazione> postazioneSceltaOpt = postazioneRepository.findById(sceltaPrenotazione);
+
+                        // crea prenotazione per quel giorno per 24h e assegna a utente
+
+                        Postazione postazioneScelta = postazioneSceltaOpt.get();
+
+                        Prenotazione prenotazione = new Prenotazione();
+                        prenotazione.setDataPrenotazione(data);
+                        prenotazione.setPostazione(postazioneScelta);
+                        prenotazione.setUtente(utente);
+
+                        utente.getPrenotazioni().add(prenotazione);
+
+                        prenotazioneRepository.save(prenotazione);
+
+                        System.out.println("Prenotazione completata con successo!");
+                    } catch (Exception e){
+                        e.getMessage();
+                    }
+                }
+                case 3 -> {
+                    List<Prenotazione> prenotazioniUtente = prenotazioneRepository.findByUtente(utente);
+
+                    if (prenotazioniUtente.isEmpty()) {
+                        System.out.println("Non hai prenotazioni attive.");
+                    } else {
+                        System.out.println("Le tue prenotazioni attive:");
+                        prenotazioniUtente.forEach(prenotazione -> {
+                            System.out.println("- Postazione: " + prenotazione.getPostazione().getDescrizione());
+                            System.out.println("  Data: " + prenotazione.getDataPrenotazione());
+                            System.out.println("  Edificio: " + prenotazione.getPostazione().getEdificio().getNome());
+                            System.out.println("-------------------------------------");
+                        });
+                    }
+                }
                 case 0 -> continua = false;
                 default -> System.out.println("Scelta non valida");
             }

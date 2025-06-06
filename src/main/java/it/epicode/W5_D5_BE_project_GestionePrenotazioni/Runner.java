@@ -81,10 +81,10 @@ public class Runner implements CommandLineRunner {
         //edifici e postazioni aggiuntivi
 
 
-        Edificio guell = new Edificio("park guell", "Barcelona");
+        Edificio guell = new Edificio("park guell", "Barcelona", "Gracia");
 
-        Postazione azzurra = new Postazione("piazza azzurra", TipoPostazione.OPENSPACE, 500, true);
-        Postazione gialla = new Postazione("piazza gialla", TipoPostazione.OPENSPACE, 300, false);
+        Postazione azzurra = new Postazione("piazza azzurra", TipoPostazione.OPENSPACE, 500);
+        Postazione gialla = new Postazione("piazza gialla", TipoPostazione.OPENSPACE, 300);
 
         guell.setPostazioni(new ArrayList<>(List.of(azzurra, gialla)));
         azzurra.setEdificio(guell);
@@ -95,14 +95,14 @@ public class Runner implements CommandLineRunner {
         postazioneRepository.save(gialla);
 
 
-        Postazione salaRossa = new Postazione("grande sala rossa per riunioni", TipoPostazione.SALA_RIUNIONI, 50, true);
+        Postazione salaRossa = new Postazione("grande sala rossa per riunioni", TipoPostazione.SALA_RIUNIONI, 50);
         portaFira.getPostazioni().add(salaRossa);
         salaRossa.setEdificio(portaFira);
         edificioRepository.save(portaFira);
         postazioneRepository.save(salaRossa);
 
 
-        Postazione salaVerde = new Postazione("una piccola sala verde privata con pochi spazi", TipoPostazione.PRIVATA, 5, true);
+        Postazione salaVerde = new Postazione("una piccola sala verde privata con pochi spazi", TipoPostazione.PRIVATA, 5);
         pavillion.getPostazioni().add(salaVerde);
         salaVerde.setEdificio(pavillion);
         edificioRepository.save(pavillion);

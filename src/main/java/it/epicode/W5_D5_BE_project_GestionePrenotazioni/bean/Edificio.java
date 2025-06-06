@@ -22,14 +22,17 @@ public class Edificio {
     private long id;
     private String nome;
     private String citta;
+    private String indirizzo;
 
 
     @OneToMany(mappedBy = "edificio")
     private List<Postazione> postazioni = new ArrayList<>();
 
 
-    public Edificio(String nome, String citta) {
+    public Edificio(String nome, String citta, String indirizzo) {
         this.nome = nome;
         this.citta = citta;
+        this.indirizzo = indirizzo;
+
     }
 }

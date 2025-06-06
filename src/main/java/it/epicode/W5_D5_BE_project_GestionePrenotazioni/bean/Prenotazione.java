@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 
 @Data
 @NoArgsConstructor
@@ -12,6 +15,8 @@ public class Prenotazione {
     @Id
     @GeneratedValue
     private long id;
+    private LocalDate dataPrenotazione;
+
 
     @ManyToOne
     @JoinColumn(name = "utente_id")
@@ -20,4 +25,6 @@ public class Prenotazione {
     @ManyToOne
     @JoinColumn(name = "postazione_id")
     private Postazione postazione;
+
+
 }
