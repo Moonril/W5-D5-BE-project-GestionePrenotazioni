@@ -14,6 +14,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -69,7 +70,7 @@ public class RunnerScanner implements CommandLineRunner {
 
                             System.out.println("Inserisci l'username: ");
                             String username = scanner.nextLine();
-                            System.out.println("Inserisci l'email'");
+                            System.out.println("Inserisci l'email: ");
                             String email = scanner.nextLine();
 
                             //cerca utente nel database
@@ -99,7 +100,7 @@ public class RunnerScanner implements CommandLineRunner {
                         String cognome = scanner.nextLine();
                         System.out.println("Inserisci l'username: ");
                         String username = scanner.nextLine();
-                        System.out.println("Inserisci l'email");
+                        System.out.println("Inserisci l'email: ");
                         String email = scanner.nextLine();
 
                         if (utenteRepository.existsByUsername(username)) {
@@ -147,13 +148,12 @@ public class RunnerScanner implements CommandLineRunner {
             switch (scelta1) {
                 case 1 -> {
                     try {
-
                         System.out.println("Inserisci la città: ");
                         String citta = scanner.nextLine();
-                        System.out.println("In che data: ");
+
+                        System.out.println("In che data (YYYY-MM-DD): ");
                         LocalDate data = LocalDate.parse(scanner.nextLine());
 
-                        //stampa postazioni disponibili
                         List<Postazione> disponibili = postazioneRepository.findPostazioniDisponibiliByCittaAndData(citta, data);
                         if (disponibili.isEmpty()) {
                             System.out.println("Nessuna postazione disponibile trovata in quella città o data. Riprova.");
@@ -161,13 +161,14 @@ public class RunnerScanner implements CommandLineRunner {
                         }
                         disponibili.forEach(System.out::println);
 
-                        //scegli postazione per numero id:
                         System.out.println("Scegli la postazione da prenotare tramite ID:");
                         long sceltaPrenotazione = Long.parseLong(scanner.nextLine());
 
                         Optional<Postazione> postazioneSceltaOpt = postazioneRepository.findById(sceltaPrenotazione);
-
-                        // crea prenotazione per quel giorno per 24h e assegna a utente
+                        if (postazioneSceltaOpt.isEmpty()) {
+                            System.out.println("ID postazione non valido.");
+                            return;
+                        }
 
                         Postazione postazioneScelta = postazioneSceltaOpt.get();
 
@@ -176,13 +177,12 @@ public class RunnerScanner implements CommandLineRunner {
                         prenotazione.setPostazione(postazioneScelta);
                         prenotazione.setUtente(utente);
 
-                        utente.getPrenotazioni().add(prenotazione);
-
                         prenotazioneRepository.save(prenotazione);
 
                         System.out.println("Prenotazione completata con successo!");
-                    } catch (Exception e){
-                        e.getMessage();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
                 }
@@ -219,6 +219,10 @@ public class RunnerScanner implements CommandLineRunner {
                         long sceltaPrenotazione = Long.parseLong(scanner.nextLine());
 
                         Optional<Postazione> postazioneSceltaOpt = postazioneRepository.findById(sceltaPrenotazione);
+                        if (postazioneSceltaOpt.isEmpty()) {
+                            System.out.println("ID postazione non valido.");
+                            return;
+                        }
 
                         // crea prenotazione per quel giorno per 24h e assegna a utente
 
@@ -229,13 +233,17 @@ public class RunnerScanner implements CommandLineRunner {
                         prenotazione.setPostazione(postazioneScelta);
                         prenotazione.setUtente(utente);
 
-                        utente.getPrenotazioni().add(prenotazione);
+//                        if (utente.getPrenotazioni() == null) {
+//                            utente.setPrenotazioni(new ArrayList<>());
+//                        }
+
+//                        utente.getPrenotazioni().add(prenotazione);
 
                         prenotazioneRepository.save(prenotazione);
 
                         System.out.println("Prenotazione completata con successo!");
                     } catch (Exception e){
-                        e.getMessage();
+                        e.printStackTrace();
                     }
                 }
                 case 3 -> {

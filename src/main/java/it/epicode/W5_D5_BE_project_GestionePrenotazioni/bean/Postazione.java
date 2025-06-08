@@ -18,6 +18,7 @@ public class Postazione {
     @GeneratedValue
     private long id;
     private String descrizione;
+    @Enumerated(EnumType.STRING)
     private TipoPostazione tipoPostazione;
     private int maxOccupanti;
 

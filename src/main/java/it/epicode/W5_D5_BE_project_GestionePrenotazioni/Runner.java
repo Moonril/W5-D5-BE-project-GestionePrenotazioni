@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //riaggiungere component
+//@Component
 public class Runner implements CommandLineRunner {
 
     @Autowired

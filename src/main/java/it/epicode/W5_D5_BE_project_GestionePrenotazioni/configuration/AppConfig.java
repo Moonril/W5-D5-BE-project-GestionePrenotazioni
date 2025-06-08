@@ -16,7 +16,7 @@ public class AppConfig {
         Edificio glories = new Edificio();
         glories.setNome("Torre Glories");
         glories.setCitta("Barcelona");
-        glories.setIndirizzo("Via de les cortes catalanes");
+        glories.setIndirizzo("Avenida Diagonal, 211");
         return glories;
     }
 
@@ -25,7 +25,7 @@ public class AppConfig {
         Edificio pavillion = new Edificio();
         pavillion.setNome("Pavillion");
         pavillion.setCitta("Barcelona");
-        pavillion.setIndirizzo("");
+        pavillion.setIndirizzo("Avenida de Francesc Ferre, 7");
         return pavillion;
     }
 
@@ -34,7 +34,7 @@ public class AppConfig {
         Edificio fira = new Edificio();
         fira.setNome("Hotel Porta Fira");
         fira.setCitta("Barcelona");
-        fira.setIndirizzo("");
+        fira.setIndirizzo("Plaza Europa, 45");
         return fira;
     }
 
